@@ -1,0 +1,34 @@
+Database Security and encryption Rules
+security_keys table
+kid			- 	not encoded
+username	-	not encoded
+key_value	-	AES_ENCRYPT(username, UNHEX(SHA2('first middle last birth_date', 512))) - to decode
+token		- 	AES_ENCRYPT(username, UNHEX(SHA2('first middle last birth_date username))) - for access
+
+sample: insert into security_keys (username, key_value, token) values ('rlee1957', AES_ENCRYPT('rlee1957', 'Russell Bert Lee 1957-07-08'), AES_ENCRYPT('rlee1957', 'Russell Bert Lee 1957-07-08 rlee1957');
+
+application_keys table
+id					-	not encoded
+application_name	-	not encoded
+application_keys	-	AES_ENCRYPT(master_key, application_name) - for access
+
+sample: insert into application_keys (id, application_name, application_key) values (4, 'ESA-Star example application', AES_ENCRYPT('ESA-Star 2017', 'ESA-Star example application')
+
+account table
+account_id			- 	not encoded
+user_name			-	not encoded
+password			-	AES_ENCRYPT(password, key_value) - to decode
+pin					-	AES_ENCRYPT(pin, key_value) - to decode	
+duress_phrase		-	AES_ENCRYPT(duress_phrase, key_value) - to decode
+question1 			-	AES_ENCRYPT(question1, key_value) - to decode
+answer1				-	AES_ENCRYPT(answer1, key_value) - to decode
+question2			-	AES_ENCRYPT(question2, key_value) - to decode
+answer2				-	AES_ENCRYPT(answer2, key_value) - to decode
+question3			-	AES_ENCRYPT(question3, key_value) - to decode
+answer3				-	AES_ENCRYPT(answer3, key_value) - to decode
+birth_date			-	not encoded
+person_id			-	not encoded
+parent_id			-	not encoded
+date_created		-	not encoded
+
+example: H
